@@ -24,5 +24,6 @@ class UserNotfier < ActionMailer::Base
   end
 end
 
-This arrangement will cause the plugin to render the content in activation.text.html.rhtml
-in the email.text.html.rhtml layout.
+This arrangement will cause the plugin to render the content in 
+views/user_notifier/activation.text.html.rhtml in the views/layouts/email.text.html.rhtml 
+layout.
