@@ -8,9 +8,10 @@ the name of your mailer class.
 For example:
 
 If your mailer class is called UserNotifier and you are rendering the activation.rhtml
-template, then the plugin will attempt to load the user_notifier.rhtml.  If you are 
+template, then the plugin will attempt to load the user_notifier.rhtml layout.  If you are 
 rendering the activation.text.html.rhtml template, the plugin will look for the
-user_notifier.text.html.rhtml template.
+user_notifier.text.html.rhtml layout. In other words, the plugin attempts to load the 
+layout named after the your ActionMailer class.
 
 You can overload this behavior by setting the layout property of your mailer:
 
