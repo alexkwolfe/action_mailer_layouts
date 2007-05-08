@@ -5,7 +5,7 @@ module ActionMailer
     adv_attr_accessor :layout
 
     def render_message(method_name, body)
-      layout = @layout.to_s
+      layout = @layout ? @layout.to_s : self.class.to_s.underscore
       md = /^([^\.]+)\.([^\.]+\.[^\.]+)\.(rhtml|rxml)$/.match(method_name)
       layout << ".#{md.captures[1]}" if md && md.captures[1]
       layout << ".rhtml"
@@ -19,6 +19,15 @@ module ActionMailer
   
     def layouts_path
       File.join(template_root, 'layouts')
-    end    
+    end 
+    
+    private
+      # Extend the template class instance with our controller's helper module.
+      def initialize_layout_class_with_helper(path,assigns)
+        returning(layout = initialize_layout_class_without_helper(path,assigns)) do
+          layout.extend self.class.master_helper_module
+        end
+      end
+      alias_method_chain :initialize_layout_class, :helper   
   end
 end
