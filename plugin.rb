@@ -19,15 +19,6 @@ module ActionMailer
   
     def layouts_path
       File.join(template_root, 'layouts')
-    end 
-    
-    private
-      # Extend the template class instance with our controller's helper module.
-      def initialize_template_class_with_helper(assigns)
-        returning(layout = initialize_template_class_without_helper(assigns)) do
-          layout.extend self.class.master_helper_module
-        end
-      end
-      alias_method_chain :initialize_template_class, :helper   
+    end  
   end
 end
