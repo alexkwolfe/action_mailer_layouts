@@ -1,3 +1,6 @@
+2007-11-27
+* Now supports helpers defined in the mailer class. Thanks to Marshall Roch.
+
 2007-24-07
 * Now requires actionmailer-1.3.3.
 
