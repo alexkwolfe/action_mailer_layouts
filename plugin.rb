@@ -13,7 +13,7 @@ module ActionMailer
       layout << ".rhtml"
       if File.exists?(File.join(layouts_path, layout))
         body[:content_for_layout] = render_message_without_layouts(method_name, body)
-        initialize_layout_template_class(body).render(:file => layout)
+        initialize_layout_template_class(body).render(:file => "./#{layout}")
       else
         render_message_without_layouts(method_name, body)
       end
