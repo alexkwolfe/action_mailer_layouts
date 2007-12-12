@@ -1,3 +1,6 @@
+2007-12-12
+* Now works with Rails 2.0.
+
 2007-11-27
 * Now supports helpers defined in the mailer class. Thanks to Marshall Roch.
 
