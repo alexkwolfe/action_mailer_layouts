@@ -8,8 +8,9 @@ module ActionMailer
 
     def render_message(method_name, body)
       layout = @layout ? @layout.to_s.clone : self.class.to_s.underscore
-      md = /^([^\.]+)\.([^\.]+\.[^\.]+)\.(rhtml|rxml)$/.match(method_name)
+      md = /^([^\.]+)\.([^\.]+\.[^\.]+)\.(erb|rhtml|rxml)$/.match(method_name)
       layout << ".#{md.captures[1]}" if md && md.captures[1]
+      layout << ".#{md.captures[2]}" if md && md.captures[2]
       layout << ".rhtml"
       if File.exists?(File.join(layouts_path, layout))
         body[:content_for_layout] = render_message_without_layouts(method_name, body)
