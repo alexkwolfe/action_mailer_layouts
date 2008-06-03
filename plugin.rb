@@ -11,10 +11,10 @@ module ActionMailer
       md = /^([^\.]+)\.([^\.]+\.[^\.]+)\.(erb|rhtml|rxml)$/.match(method_name)
       layout << ".#{md.captures[1]}" if md && md.captures[1]
       layout << ".#{md.captures[2]}" if md && md.captures[2]
-      layout << ".rhtml"
+      layout << ".rhtml" if Rails::VERSION::MAJOR < 2
       if File.exists?(File.join(layouts_path, layout))
         body[:content_for_layout] = render_message_without_layouts(method_name, body)
-        initialize_layout_template_class(body).render(:file => "./#{layout}")
+        initialize_layout_template_class(body).render(:file => "/#{layout}")
       else
         render_message_without_layouts(method_name, body)
       end
@@ -22,6 +22,9 @@ module ActionMailer
     
     def initialize_layout_template_class(assigns)
       returning(template = ActionView::Base.new(layouts_path, assigns, self)) do
+        if Rails::VERSION::MAJOR >= 2 and Rails::VERSION::MINOR >= 1
+          ActionView::TemplateFinder.process_view_paths(layouts_path)
+        end
         template.extend self.class.master_helper_module
       end
     end
